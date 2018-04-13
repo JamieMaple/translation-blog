@@ -130,7 +130,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 2. 然后在命令菜单栏中输入 `Rendering`  然后选择 `Show Rendering`
 
-3. 在 Rendering 表中，启用 FPS 面板。他讲出现在页面的右上方。
+3. 在 Rendering 表中，启用 FPS 面板。它将出现在页面的右上方。
 
    ![](Get Started With Analyzing Runtime Performance/10.png)
 
