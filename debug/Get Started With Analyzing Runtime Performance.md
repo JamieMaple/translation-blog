@@ -1,4 +1,4 @@
-# 分析运行时性能（译）
+# 分析运行时性能
 
 ### 内容
 
@@ -34,7 +34,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 3. 按下 `Command` + `option` + `I`（Mac）或者 `Control` + `shift` + `I`（Windows，Linux）来打开 DevTools。
 
-   ![](./Get Started With Analyzing Runtime Performance/1.png)
+   ![](Get Started With Analyzing Runtime Performance/1.png)
 
    **Figure 1. ** demo 在左，DevTools 在右
 
@@ -52,7 +52,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 4. 对于 CPU ，请选择 2x slowdown。DevTools 将降低 CPU 性能，比原来慢两倍。
 
-   ![](./Get Started With Analyzing Runtime Performance/2.svg)
+   ![](Get Started With Analyzing Runtime Performance/2.svg)
 
    **Figure 2. ** 蓝色圈住的是 CPU throttling
 
@@ -76,13 +76,13 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 1. 在 DevTools 中，点击 Record。DevTools 将会随着页面运行来获得性能评估。
 
-   ![](./Get Started With Analyzing Runtime Performance/4.png)
+   ![](Get Started With Analyzing Runtime Performance/4.png)
 
 2. 等待几秒钟时间
 
 3. 点击 Stop。DevTools 停止录制，分析数据，然后将在 Performance 面板上展示结果。
 
-   ![](./Get Started With Analyzing Runtime Performance/5.png)
+   ![](Get Started With Analyzing Runtime Performance/5.png)
 
    **Figure 4:** profile 的结果
 
@@ -98,25 +98,25 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 1. 查看 FPS 图表栏。每当你发现 FPS 上方的红条时，这意味着存在非常严重的问题损害到了用户体验。整体来说，绿条越高，FPS 就越高。
 
-   ![](./Get Started With Analyzing Runtime Performance/6.svg)
+   ![](Get Started With Analyzing Runtime Performance/6.svg)
 
    **Figure 5:** 蓝色圈住的是 FPS 图表
 
 2. 在 FPS 表格栏下面是 CPU 图表栏。CPU 栏里的颜色与下方 Summary 栏的颜色息息相关。当你看到 CPU 表格栏满满的颜色时，这意味着你的 CPU 在录制期间满载了。只要当你看到 CPU 满载工作了，你就有了减少 CPU 工作的线索。
 
-   ![](./Get Started With Analyzing Runtime Performance/7.svg)
+   ![](Get Started With Analyzing Runtime Performance/7.svg)
 
    **Figure 6: ** 蓝色圈住的是 CPU 图表以及 Summary 选项卡
 
 3. 鼠标悬停在 FPS，CPU 或者 NET 任意一栏上时。DevTools 将给你展示此页面该时刻的截图，左右移动鼠标将会重放此时间段内的录像。这个被称为 scrubbing，对于我们分析动画的每个细节是非常有用的。
 
-   ![](./Get Started With Analyzing Runtime Performance/8.png)
+   ![](Get Started With Analyzing Runtime Performance/8.png)
 
    **Figure 7 :** 页面截图大概在录像 2000ms 处
 
 4. 在有关 Frames （帧）的部分，在任意一个绿色矩形上悬停你的鼠标。DevTools 将向你展示该特定帧的 FPS 的信息。每一帧都可能低于目标的 60FPS。
 
-   ![](./Get Started With Analyzing Runtime Performance/9.png)
+   ![](Get Started With Analyzing Runtime Performance/9.png)
 
    **Figure 8:** 悬停在某个帧
 
@@ -132,7 +132,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 3. 在 Rendering 表中，启用 FPS 面板。他讲出现在页面的右上方。
 
-   ![](./Get Started With Analyzing Runtime Performance/10.png)
+   ![](Get Started With Analyzing Runtime Performance/10.png)
 
    **Figure 9:** FPS 面板
 
@@ -144,19 +144,19 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 1. 请注意 summary 选项卡。当没有选择任何事件，此面板会显示所有活动的细目。这个页面花费了很多时间在 rendering 上。因为**提升性能是减少工作的艺术**，你的目标就是来减少 rendering 的时间。
 
-   ![](./Get Started With Analyzing Runtime Performance/11.svg)
+   ![](Get Started With Analyzing Runtime Performance/11.svg)
 
    **Figure 10: ** 蓝圈选中的是 Summary 选项卡
 
 2. 展开 Man 部分。DevTools 将向你展示主线程在运行期间的各种情况。x 轴代表了录制的时间。每一条矩形都代表了一个事件。一个较宽的长条代表该事件花费了更长的事件。y 轴代表了调用栈。当你看到某些事件在其他事件之上时（栈），这意味着上方的事件调用了下方的事件。
 
-   ![](./Get Started With Analyzing Runtime Performance/12.svg)
+   ![](Get Started With Analyzing Runtime Performance/12.svg)
 
    **Figure 11:** 篮圈选中的是 Main 部分
 
 3. 录制中有非常多的数据。通过单击、按住以及拖动鼠标到 Overview 来放大单个动画帧事件，这个部分包含了 FPS，CPU 以及 NET 图表。Main 部分和 Summary 选项卡只显示该选中的录像部分信息。
 
-   ![](./Get Started With Analyzing Runtime Performance/13.png)
+   ![](Get Started With Analyzing Runtime Performance/13.png)
 
    **Figure 12:** 放大了的某个帧的 Animation Frame Fired 事件
 
@@ -168,7 +168,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 5. 点击 Animation Frame Fired 事件。Summary 选项卡此时会向你展示这个事件的有关信息。请注意 reveal 链接。点击它将会让 DevTools 高亮启动该 Animation Frame Fired 事件的事件。同时注意 app.js:94 链接。点击它将跳转到源码中相关的代码位置。
 
-   ![](./Get Started With Analyzing Runtime Performance/15.png)
+   ![](Get Started With Analyzing Runtime Performance/15.png)
 
    **Figure 13:** 更多有关 Animation Frame Fired 事件的信息
 
@@ -178,7 +178,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 7. 在 Summary 选项卡中，点击在 Layout forced 下面的 app.js:70 链接。DevTools 将带你跳转到源码中强制你 layout(布局) 的代码行。
 
-   ![](./Get Started With Analyzing Runtime Performance/16.png)
+   ![](Get Started With Analyzing Runtime Performance/16.png)
 
    **Figure 13:** 这行代码导致了强制 layout（布局）
 
