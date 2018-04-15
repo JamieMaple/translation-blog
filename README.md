@@ -1,7 +1,7 @@
 # translation-blog
-既然被骂浮躁，那就多写点博客，多翻译点文章
-
 任何语病与异议，欢迎 issues 和 PR
+
+[GitHub]()
 
 1. 以绝对的基础为导向
 
