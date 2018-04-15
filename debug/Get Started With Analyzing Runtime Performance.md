@@ -90,7 +90,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 ###分析结果
 
-一旦你得到了该页面的性能录制，你将会发现这个页面的性能有多么的差以及造成这个的原因有哪些。
+一旦你得到了该页面的性能录像，你将会发现这个页面的性能有多么的差以及造成这个的原因有哪些。
 
 ##### 分析每秒的帧
 
@@ -148,13 +148,13 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
    **Figure 10: ** 蓝圈选中的是 Summary 选项卡
 
-2. 展开 Man 部分。DevTools 将向你展示主线程在运行期间的各种情况。x 轴代表了录制的时间。每一条矩形都代表了一个事件。一个较宽的长条代表该事件花费了更长的事件。y 轴代表了调用栈。当你看到某些事件在其他事件之上时（栈），这意味着上方的事件调用了下方的事件。
+2. 展开 Main 部分。DevTools 将向你展示主线程在运行期间的各种情况。x 轴代表了录制的时间。每一条矩形都代表了一个事件。一个较宽的长条代表该事件花费了更长的事件。y 轴代表了调用栈。当你看到某些事件在其他事件之上时（栈），这意味着上方的事件调用了下方的事件。
 
    ![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/main.svg)
 
    **Figure 11:** 篮圈选中的是 Main 部分
 
-3. 录制中有非常多的数据。通过单击、按住以及拖动鼠标到 Overview 来放大单个动画帧事件，这个部分包含了 FPS，CPU 以及 NET 图表。Main 部分和 Summary 选项卡只显示该选中的录像部分信息。
+3. 录像中有非常多的数据。通过单击、按住以及拖动鼠标到 Overview 来放大单个动画帧事件，这个部分包含了 FPS，CPU 以及 NET 图表。Main 部分和 Summary 选项卡只显示该选中的录像部分信息。
 
    ![](/var/folders/7c/w93rl_1d6f57c_2jr5xxxp0w0000gn/T/abnerworks.Typora/image-20180415095231783.png)
 
@@ -190,7 +190,7 @@ Runtime Performance 是你的页面运行时的情况，这与加载时相反。
 
 利用刚刚学到的工作流程以及工具，点击 demo 中的 Optimize 来启用优化了的代码，进行又一次的性能录制，然后分析这些结果。从改进版本中 Main 部分的图表能看得到大量事件被缩减，你可以看到这个优化了的版本做了更少的工作却得到了更好性能的结果！
 
-> 提示：尽管 这个 “优化了” 的版本不是那么好，因为他依然操作了每个正放心的 top 属性。一个更好的办法是使用只影响到 compositing 的属性。查看 [Use transform and opacity changes for animations](https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count#use_transform_and_opacity_changes_for_animations) 来获取更多的信息。
+> 提示：尽管 这个 “优化了” 的版本不是那么好，因为他依然操作了每个正方形的 top 属性。一个更好的办法是使用只影响到 compositing 的属性。查看 [Use transform and opacity changes for animations](https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count#use_transform_and_opacity_changes_for_animations) 来获取更多的信息。
 
 ---
 
