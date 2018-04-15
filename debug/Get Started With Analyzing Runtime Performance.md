@@ -14,7 +14,7 @@
 
 ---
 
-Runtime Performance 是你的页面运行时的情况，这与加载时相反。这个教程将教会你怎样来用 Chrome DevTools 性能分析面板来对运行时性能进行Fenix。就 RAIL model 而言，你从这个教程中学到的将有助于分析你页面的网络响应，动画以及idle phases。
+Runtime Performance 是你的页面运行时的情况，这与加载时相反。这个教程将教会你怎样来用 Chrome DevTools 性能分析面板来对运行时性能进行分析。就 RAIL model 而言，你从这个教程中学到的将有助于分析你页面的网络响应，动画以及idle phases。
 
 > 注意：这个教程基于 Chrome 59，如果你用另外版本的 Chrome，DevTools 的 UI 界面和特性将可能有所不同。请检查 `crhome://help` 来查看你的 chrome 版本号
 
