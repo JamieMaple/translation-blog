@@ -1,7 +1,7 @@
 # translation-blog
 任何语病与异议，欢迎 issues 和 PR
 
-[GitHub]()
+[GitHub](https://github.com/JamieMaple/translation-blog)
 
 1. 以绝对的基础为导向
 
