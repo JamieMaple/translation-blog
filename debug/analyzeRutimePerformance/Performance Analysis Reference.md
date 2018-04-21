@@ -173,7 +173,87 @@ Figure 7 and Figure 8 展示了禁用与启用 JavaScript 示例的区别。在�
 
 ### 分析性能记录
 
-在你 [record runtime performance](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference?hl=zh-cn#record-runtime) 或 [record load performance](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference?hl=zh-cn#record-load) 之后，
+在你 [record runtime performance](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference?hl=zh-cn#record-runtime) 或 [record load performance](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference?hl=zh-cn#record-load) 之后，**Performance** 选项卡会提供很多刚记录用来分析性能的数据。
+
+##### 选择记录中一部分
+
+在 **Overview** 上向左或向右拖拽你的鼠标来选取一部分的记录。 **Overview** 就是那个有包含了 FPS，CPU 以及 NET 表格的区域。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/zoom.gif)
+
+**Figure 12**. 在 Overview 上拖拽鼠标来放大或缩小
+
+用键盘来选取一部分：
+
+1. 点击 **Main** 区域的背景，或者其他任意靠近它的区域，比如说 **Interactions**，**Network**，或者 **GPU**。键盘的工作流程只会发生在其中某个部分被选中的时候。
+2. 使用 W，A，S，D 键位来分别放大，向左移动，缩小以及向右移动。
+
+用触控板来选取一部分：
+
+1. 让你的鼠标悬停在 **Overview** 或者 **Details** 区域。**Overview** 部分就是那个包含有 **FPS**，**CPU** 以及 **NET** 表格的区域。**Details** 部分就是那个包含了 **Main** 部分，**Interactions** 部分以及其他部分的区域。
+2. 用两个手指向上滑动来缩小，向左滑动来向左移动，向下滑动来放大，向右滑动来向右移动。
+
+为了在 **Main** 区域上的很长一段表格上滑动或者任意与它相邻的区域，在向上和向下拖动的同时点击并按住。向左或向右拖动来移动到选中记录的任意部分。
+
+##### 搜寻事件
+
+按下 `Command` + `F` (Mac) 或 `Control` + `F` (windows，Linux) 来打开在 **Performance** 选项卡下方的搜索框。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/search.png)
+
+**Figure 13**. 在窗口下方的搜索框中使用正则表达式来查找所有以 `E` 开头的活动。
+
+导航符合你条件的活动：
+
+1. 使用 **Previous** ![Previous](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/previous.png) 以及 **Next** ![Next](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/next.png) 按钮。
+2. 按下 `Shift` + `Enter` 来选取之前的或者按下 `Enter` 选择下一个
+
+更改查询设定：
+
+1. 点击 **Case sensitive** ![Case sensitive](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/search-case.png) 让查找对大小敏感
+2. 点击 **Regex** ![Regex](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/search-regex.png) 在查询中使用正则表达式
+
+点击 **Cancel** 来隐藏搜索框
+
+##### 查看主线程的活动
+
+使用 **Main** 区域来查看发生在页面主线程上的事件。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/main.svg)
+
+**Figure 14**. 蓝圈圈中的是 **Main** 部分
+
+点击一个事件在 **Summary** 选项卡中查看更多关于它的信息。DevTools 会用蓝圈圈中选中的事件。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/maineventsummary.png)
+
+**Figure 15**. **Summary** 选项卡中更多关于 `Me` 函数调用事件的信息
+
+DevTools 会用表格显示主线程中的事件。x 轴代表了记录的时间。y 轴代表了调用栈。上方的事件会引发下方的事件。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/flamechart.png)
+
+**Figure 16**. **Main** 区域上大量的表格
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
