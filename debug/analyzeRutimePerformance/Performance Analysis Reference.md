@@ -235,6 +235,335 @@ DevTools 会用表格显示主线程中的事件。x 轴代表了记录的时间
 
 **Figure 16**. **Main** 区域上大量的表格
 
+在图16中，一个 `click` 事件导致了一个在 `script_foot_clousure.js` 中的53行处的函数调用。在 `Function Call` 下方你可以看到有个匿名函数被调用。这个匿名函数然后调用了 `Me()` 然后它又调用了 `Se()`，等等。
+
+DevTools 随机给脚本分配了颜色。在图16中，从某个脚本中调用的函数被涂上了绿色。另一个脚本文件的调用则使用了米色。深黄色代表了脚本的活动，紫色事件代表了渲染活动。这些深黄色以及紫色事件是会贯穿整个记录的。
+
+如果你想要隐藏 JavaScript 详细的调用表格，查阅 [Disable JavaScript samples](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#disable-js-samples)  获取更多。当 JS 示例被禁用时，你只能看到一些像在图16中的 `Event(click)` 以及 `Function Call (script_foot_closure.js:53)` 的高层事件。
+
+##### 在表格中查看活动
+
+当记录完一个页面后，你无需完全依赖 **Main** 部分来分析活动。DevTools 还提供了三个表格式的视图用以分析活动。每一个视图都能给你这些活动不一样的视角：
+
+- 当你想要查看导致了大量工作的 Root activities 时，请使用 [the **Call Tree** tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#call-tree) 。
+- 当你想要查看耗时长的事件时，请使用 [the **Bottom-Up** tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#bottom-up) 。
+- 当你想要查看记录中的事件怎样排序时，请使用 [the **Event Log** tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#event-log) 。
+
+> 提示：下面三个部分全是用的一个 Demo。你可以用在 [Activity Tabs demo](https://googlechrome.github.io/devtools-samples/perf/activitytabs) 上运行自己的 demo 同时可以查看 [GoogleChrome/devtools-samples/perf/activitytabs.html](https://github.com/GoogleChrome/devtools-samples/blob/master/perf/activitytabs.html) 的源码。
+
+##### Root activities
+
+这里有个关于的在 **Call Tree** 选项卡，**Bottom-Up** 选项卡以及 **Event Log** 区域中曾提到到过得 Root activities 概念的解释。
+
+Root activities 指的就是那些会导致浏览器会做更多事情的活动。举个栗子，当你点击一个页面时，浏览器会发出一个 `Event` 活动作为 root activity。这个 `Event` 可能会导致一个处理函数去执行，等等。
+
+在 **Main** 区域的表格中，root activities 处于表格的顶部。在 **Call Tree** 以及 **Event Log** 选项卡中，root activities 是顶层的东西。
+
+查阅 [The Call Tree tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#call-tree) 中关于 root activities 的栗子。
+
+##### The Call Tree tab
+
+使用 **Call Tree** 来查看哪个 [root activities](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#root-activities) 导致更多的工作。
+
+**Call Tree** 只能显示在记录中选中区域的活动。查阅 [Select a portion of a recording](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#select) 来学习怎样选择区域。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/call-tree.png)
+
+**Figure 17**. **Call Tree** 选项卡
+
+在图 17 中，在  **Activity** 一栏中顶层的事物，比如 `Event`，`Paint` 以及 `Composite Layers` 就是 root activities。嵌套的代表了调用栈。举个栗子，在图 17 中，`Event` 会导致 `Function Call`，这会导致 `button.addEventListener`，这又会导致 `b` ，等等。
+
+**Self Time** 代表了这个活动中直接耗费了多少的时间。 **Total Time** 代表了在这个事件中或者他的孩子共耗费了多少的时间。
+
+点击 **Self Time**，**Total Time** 或者 **Activity** 通过该列对这个表格排序。
+
+使用 **Filter** 文本框来通过活动名称过滤事件。
+
+默认情况下， **Grouping** 菜单栏被设置成 **No Grouping**。使用 **Grouping** 菜单在多样的标准上对活动进行排序。
+
+点击 **Show Heaviest Stack** 来展开另外一个在 **Activity** 表格右边的表格。点击任意一个活动来展开 **Heviest Stack** 表格。 **Heaviest Stack** 表格向你展示了哪个子事件耗费了最多的执行时间。
+
+##### The Bottom-Up tab
+
+使用 **Bottom-Up** 选项卡来查看哪个事件在总数上使用了大量的时间。
+
+**Bottom-Up** 选项卡只显示在记录中选中部分的活动。查阅 [Select a portion of a recording](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#select) 来学习怎样选取部分。
+
+![](/var/folders/7c/w93rl_1d6f57c_2jr5xxxp0w0000gn/T/abnerworks.Typora/image-20180421181641661.png)
+
+**Figure 18**. **Bottom-Up** 选项卡
+
+图18中 **Main** 部分中，你可以看到几乎所有的时间都执行在了三次调用 `wait()` 上。于是，图 18 中的 **Bottom-Up** 选项卡中的顶层活动的 `wait`。在图 18 中，实际上在 `wait` 调用下方黄色部分有几千次的 `Minor GC` 的调用。于是，你可以在 **Bottom-Up** 选项卡中，另一个花费了大量时间的活动是 **Minor GC**。
+
+**Self Time** 栏代表了某个活动在他发生期间花费的总时间。
+
+**Total Time** 栏代表了某个活动或者他的子活动的总时间。
+
+##### Event Log 选项卡
+
+使用 **Event Log** 选项卡来查看在记录时按顺序发生的活动。
+
+**Event Log** 选项卡只会展示记录中选中部分的活动。查阅 [Select a portion of a recording](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#select) 来学习怎样选择部分。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/event-log.png)
+
+**Figure 19.** **Event Log** 选项卡
+
+**Start Time** 选项栏代表了事件开始的时间点，这与记录开始的时间有关。举个栗子，图 19 中选中部分的 `1573.0 ms` 开始时间意味着该活动在记录开始的 1573 ms 之后。
+
+**Self Time** 栏代表了该活动耗费了多长时间。
+
+**Total Time** 栏代表了该事件直接或它的子事件耗费了多长时间。
+
+点击 **Start Time**， **Self Time** 或者 **Total Time** 来通过这些栏目对表格进行排序。
+
+使用 **Filter** 文本框对活动名称进行过滤。
+
+使用 **Duration** 菜单来过滤掉任何耗费了少于 1ms 或者 15 ms 时间的活动。默认情况下， **Duration** 菜单被设置成了 **All**，这意味着所有的活动都会呈现。
+
+禁用 **Loading**， **Scripting**， **Rendering** 或者 **Painting** 选项卡迎来从这些种类中过滤所有活动。
+
+##### 查看 GPU 活动
+
+在 GPU 区域查看 GPU 的活动
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/gpu.svg)
+
+**Figure 20.** 途中蓝圈圈中的是 **GPU** 部分
+
+##### 查看 raster （光栅）活动
+
+在 **Raster** 部分中查看 raster 活动。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/raster.svg)
+
+**Figure 21.** 蓝圈全中了 **Raster** 部分
+
+##### 查看交互事件
+
+使用 **Interactions** 部分来查找以及分析在发生在记录时用户的交互行为。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/interactions.svg)
+
+**Figure 22. 蓝圈全中了 ** **Interactions** 部分
+
+交互事件下方的红线代表了主线程等待所耗费的时间。
+
+点击一个交互事件来在 **Summary** 选项卡中查看详细信息。
+
+##### 分析每秒的帧数（FPS）
+
+DevTools 提供了很多的方式来分析每秒的帧数：
+
+- 使用 [the **FPS** chart](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#fps-chart) 来得到记录时 FPS 的概览
+- 使用 [the **Frames** section](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#frames) 来查看一个特定帧耗费了多长时间
+- 使用 **FPS meter** 来获取实时页面运行估计的 FPS。查阅 [View frames per second in realtime with the FPS meter](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#fps-meter)
+
+##### FPS 表格
+
+**FPS** 表格提供了记录时帧率的概况。大体上来说，绿条越高，帧率越高。
+
+**FPS** 表格下面的红条时一个帧率非常低的警告，这可能很可能会影响到用户体验。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/fps-chart.svg)
+
+**Figure 20.**  蓝圈全中了 FPS 表格
+
+##### 帧数部分
+
+**Frame** 部分告诉了你某个帧具体耗费了多长的时间。
+
+让鼠标悬停在一个帧上来查看关于它具体信息的提示。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/frames-section.png)
+
+**Figure 21.** 悬停在一个帧上时
+
+点击一个帧来在 **Summary** 选项卡上查看更多关于该帧的信息。DevTools 会用蓝圈框选选中的帧。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/frame-summary.png)
+
+**Figure 22.** 在 **Summary** 选项卡上查看帧
+
+##### 查看网络请求
+
+展开 **Network** 部分来查看记录发生时网络请求瀑布流。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/network-request.svg)
+
+**Figure 23.**  蓝圈选中了 **Network** 部分
+
+请求会用下面的颜色对不同的文件上色：
+
+- HTML: 蓝色
+- CSS: 紫色
+- JS: 黄色
+- Images: 绿色
+
+点击任意一个请求在 **Summary ** 选项卡上查看更多关于它的详情。举个栗子，在图 23 中的 **Summary** 选项卡显示了在 **Network** 中更多关于蓝色选中的请求的详情信息。
+
+在请求左上方的深蓝色正方形意味着他是一个高优先级的请求。淡蓝色正方形则意味着低优先级。举个栗子，在图 23 中蓝色选中的请求比在它下面的绿色请求优先级更高。
+
+在图 24 中，对 `www.google.com` 的请求通过左边的一条线，有深色和浅色区域的中间长条以及一条右边的线来表示。图 25 显示了 **Network** 面板中 **Timing** 选项卡对应请求的信息。下面是这两者之间的对应关系：
+
+- 左边的线代包括了所有 `Connect Start` 的一系列的事件。换句话说，他不包括所有在 `Request Sent` 之前的事情。
+- 长条的浅色部分是 `Request Sent` 以及 `Waiting (TTFN)`。
+- 长条的深色部分是 `Content Download`。
+- 右边的线本质上是等待主线程所耗费的时间。这个不会在 **Timing** 选项卡中显示出来。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/linebar.png)
+
+**Figure 24.** `www.google.com` 请求的长条描述形式。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/timing.png)
+
+**Figure 25.**  **Timing** 选项卡中 `www.google.com` 请求的描述形式。
+
+##### 查看内存指标
+
+选中 **Memory** 选项框来查看最近一次记录的内存指标。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/memory.svg)
+
+**Figure 26.** 蓝圈全中了 **Memory** 选项框
+
+DevTools 展示了一个新的 **Memory** 表格，在 **Summary** 选项卡上方。同时也还有一个新表格在 **NET** 表格之下，它被叫做 **HEAP**。 **HEAP** 表格提供了同样的信息就像在 **Memory** 表格中的 **JS Heap**。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/memory.png)
+
+**Figure 27.** 位于 **Summary** 选项卡上方的内存指标
+
+表格上有颜色的线与表格上方有颜色的选项框一一对应。点击禁用某个选项框来隐藏表格中那个类别的信息。
+
+表格只显示记录中当前选中的区域。举个栗子，在图 27 中， **Memory** 表格只显示了记录开始时的内存使用情况，大约只有 1000ms。
+
+##### 查看部分记录的运行时间
+
+当你在分析像 **Network** 或者 **Main** 部分时，你可能需要更多关于事件会花费具体多长时间的精确预估。按住 `Shift` ，点击然后拖动，向左或向右拖动来选择记录的某部分。在你选择部分的下方，DevTools 会展示这个部分耗费了多长时间。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/duration.png)
+
+**Figure 28.** 选中部分的底部的 `488.53ms` 时间戳表明了这个部分耗费了多长时间
+
+##### 查看快照
+
+查阅 [Capture screenshots while recording](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#screenshots) 来学习怎样启用快照。
+
+让鼠标悬停在 **Overview** 上方来查看当前页面在记录中该时刻的快照。 **Overview** 就是那个包含有 **CPU**， **FPS** 以及 **NET** 表格的部分。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/view-screenshot.png)
+
+**Figure 29.** 查看快照
+
+你也可以通过点击 **Frames** 部分的一个帧来查看快照。DevTools 展示了在 **Summary** 选项卡中快照的一个小版本。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/frame-screenshot-summary.png)
+
+**Figure 30.** 在 **Frames** 部分中点击 `195.5ms` 帧之后，该帧的快照就会显示在 **Summary** 选项卡中。
+
+点击 **Summary** 选项卡中的缩略图来放大快照。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/frame-screenshot-zoom.png)
+
+**Figure 31. ** 在点击 **Summary** 选项卡中点击缩略图之后，DevTools 会放大快照。
+
+##### 查看图层信息
+
+查看关于某个帧图层高级信息：
+
+1. [Enable advanced paint instrumentation](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#paint)
+2. 在 **Frames** 部分选择一个帧。DevTools 会在与 **Event Log** 相邻的，一个新的 **Layers** 选项卡中展示关于他的图层信息。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/layers.png)
+
+**Figure 32.** **Layers** 选项卡
+
+在图上，鼠标悬停在一个图层上来高亮它。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/layerhover.png)
+
+**Figure 33.** 高亮图层 **#39**
+
+移动图：
+
+- 点击 **Pan Mode** ![Pan Mode](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/pan-mode.png) 来通过 x ，y 轴来移动。
+- 点击 **Rotate Mode** ![Rotate Mode](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/rotate-mode.png) 来通过 z 轴旋转。
+- 点击 **Reset Transform** ![Reset  Transform](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/reset-transform.png) 来重置示例图到原来的位置。
+
+**Figure 34.** **Paint Profiler** 选项卡
+
+### 通过 Rendering 选项卡分析渲染性能
+
+使用 **Rendering** 选项卡的特性来帮助你可视化页面渲染性能。
+
+打开 **Rendering** 选项卡：
+
+1. 打开 [Command Menu](https://developers.google.com/web/tools/chrome-devtools/ui#command-menu)
+2. 输入 `Rendering` 然后选择 `Show Rendering`。DevTools 会在 DevTools 窗口的下方显示 **Rendering** 选项卡。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/rendering-tab.png)
+
+**Figure 35** **Rendering** 选项卡
+
+##### 通过 FPS 面板来查看实时每秒的帧数
+
+**FPS 面板** 是一个出现在你视野右上角的覆盖层。他会提供实时页面运行的 FPS 估计值。打开 **FPS 面板**：
+
+1. 打开 **Rendering** 选项卡。查阅 [Analyze rendering performance with the Rendering tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#rendering)
+2. 启用 **FPS 面板** 选项框
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/fps-meter.png)
+
+**Figure 36.** FPS 面板
+
+##### 通过 Paint Flashing 查看实时绘制事件
+
+使用 Paint Flashing 来获取页面实时所有的绘制事件的视图。每当页面的任意一个部分发生了重绘，DevTools 会用绿圈圈中重绘的区域：
+
+启用 Paint Flashing：
+
+1. 打开 **Rendering** 选项卡。查阅 [Analyze rendering performance with the Rendering tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#rendering)
+2. 启用 **Paint Flashing** 选项框
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/paint-flashing.gif)
+
+**Figure 37.** Paint Flashing
+
+#####  通过 Layers Borders 查看图层的叠加层
+
+使用 **Layers Borders** 在页面顶层来查看叠加层的图层边框以及叠加情况。
+
+启用 Layers Borders：
+
+1. 打开 **Rendering** 选项卡。查阅 [Analyze rendering performance with the Rendering tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#rendering)。
+2. 启用 **Layers Border** 选项框。
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/layer-borders.png)
+
+**Figure 38.** Layer Borders
+
+查阅 [`debug_colors.cc`](https://cs.chromium.org/chromium/src/cc/debug/debug_colors.cc) 中的注释来得到颜色编码的解释。
+
+##### 查找实时的滑动性能问题
+
+使用 **Scrolling Performance Issues** 来确认页面的元素是否有相关的事件监听会影响到页面的性能。DevTools 会圈出潜在有问题的元素。
+
+查看滑动性能问题：
+
+1. 打开 **Rendering** 选项卡。查阅 [Analyze rendering performance with the Rendering tab](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference#rendering)。
+2. 启用 **Scrolling Performance Issues** 选项框
+
+![](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/imgs/scrolling-performance-issues.png)
+
+**Figure 39.** **Scrolling Performance Issues** 表明该页面存在一个 **mousewheel** 事件监听，其中包含了有损整个页面视图滑动性能的监听器。
+
+
+
+
+
+
+
+
 
 
 
